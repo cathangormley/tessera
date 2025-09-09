@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TileType" load_steps=2 format=3 uid="uid://bs5meugbn6ty2"]
+
+[ext_resource type="Script" uid="uid://c73mgtyntnmxu" path="res://data/tiles/Tile.gd" id="1_bx2ge"]
+
+[resource]
+script = ExtResource("1_bx2ge")
+name = "Water"
+walkable = true
+walking_cost = 3
+flying_cost = 1
+color = Color(0, 1, 1, 1)
+dodge = -10
+metadata/_custom_type_script = "uid://c73mgtyntnmxu"

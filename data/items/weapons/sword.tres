@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=13 format=3 uid="uid://nbuaf3krr7kr"]
+
+[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/Action.gd" id="1_2qqpx"]
+[ext_resource type="Script" uid="uid://bjl3ryiuya0x" path="res://data/action/effects/Effect.gd" id="2_g27iu"]
+[ext_resource type="Resource" uid="uid://bedoqgur666" path="res://data/damage/physical/damage_slashing.tres" id="3_g27iu"]
+[ext_resource type="Script" uid="uid://ckbl671vl5kxs" path="res://data/action/effects/EffectHitForDamage.gd" id="3_ki50l"]
+[ext_resource type="Resource" uid="uid://bkgt65hmm68u6" path="res://data/action/targets/TargetAdjacent.tres" id="4_njmhg"]
+[ext_resource type="Script" uid="uid://dd6c0mmu4a1n2" path="res://data/action/targets/TargetCone.gd" id="5_asvlo"]
+[ext_resource type="Script" uid="uid://dmqq4yrii0tha" path="res://data/items/ItemData.gd" id="5_m42mj"]
+
+[sub_resource type="Resource" id="Resource_m42mj"]
+script = ExtResource("3_ki50l")
+min_damage = 4
+max_damage = 8
+hit = 80
+scaling_attributes = Dictionary[int, float]({
+1: 1.0
+})
+damage_type = ExtResource("3_g27iu")
+metadata/_custom_type_script = "uid://ckbl671vl5kxs"
+
+[sub_resource type="Resource" id="Resource_g27iu"]
+script = ExtResource("1_2qqpx")
+name = "Sword: Attack"
+sp_cost = 0
+description = "This is an action"
+target = ExtResource("4_njmhg")
+effects = Array[ExtResource("2_g27iu")]([SubResource("Resource_m42mj")])
+highlight_color = Color(1, 0, 0, 0.5)
+charges_used = 0
+metadata/_custom_type_script = "uid://bysafihcxa5ur"
+
+[sub_resource type="Resource" id="Resource_2qqpx"]
+script = ExtResource("3_ki50l")
+min_damage = 2
+max_damage = 6
+hit = 70
+scaling_attributes = Dictionary[int, float]({})
+damage_type = ExtResource("3_g27iu")
+metadata/_custom_type_script = "uid://ckbl671vl5kxs"
+
+[sub_resource type="Resource" id="Resource_njmhg"]
+script = ExtResource("5_asvlo")
+cone_range = 1
+metadata/_custom_type_script = "uid://dd6c0mmu4a1n2"
+
+[sub_resource type="Resource" id="Resource_ki50l"]
+script = ExtResource("1_2qqpx")
+name = "Wide Slash"
+sp_cost = 6
+description = "Do a wide slash, hitting 2 enemies at once"
+target = SubResource("Resource_njmhg")
+effects = Array[ExtResource("2_g27iu")]([SubResource("Resource_2qqpx")])
+highlight_color = Color(1, 0, 0, 0.5)
+charges_used = 0
+metadata/_custom_type_script = "uid://bysafihcxa5ur"
+
+[resource]
+script = ExtResource("5_m42mj")
+item_name = "Sword"
+description = "A basic sword"
+weight = 4
+actions = Array[ExtResource("1_2qqpx")]([SubResource("Resource_g27iu"), SubResource("Resource_ki50l")])
+uses = 1

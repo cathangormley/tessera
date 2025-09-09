@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AttributeArray" load_steps=2 format=3 uid="uid://bskkdt263ucax"]
+
+[ext_resource type="Script" uid="uid://84000clhrh14" path="res://scripts/battle/unit/AttributeArray.gd" id="1_mn5hq"]
+
+[resource]
+script = ExtResource("1_mn5hq")
+_vigor = -1.0
+_strength = 0.0
+_dexterity = 1.0
+_speed = 0.0
+_intellect = 1.0
+_faith = -1.0
+metadata/_custom_type_script = "uid://84000clhrh14"

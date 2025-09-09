@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch8xomnxwmew5"]
+
+[ext_resource type="Script" uid="uid://dvyyewa8qevac" path="res://scenes/ui/action_menu/ActionMenuHUD.gd" id="1_0yurm"]
+
+[node name="ActionMenuHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_0yurm")
+metadata/_custom_type_script = "uid://dvyyewa8qevac"
+
+[node name="Screen" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuContainer" type="Control" parent="."]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="gui_input" from="Screen" to="." method="_on_screen_gui_input"]

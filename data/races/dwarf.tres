@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Race" load_steps=5 format=3 uid="uid://bj86bnsmupvpw"]
+
+[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/Action.gd" id="1_2vqpi"]
+[ext_resource type="Resource" uid="uid://ckbhl5k3v4qlx" path="res://data/races/attributes/attributes_dwarf.tres" id="2_jr5a6"]
+[ext_resource type="Resource" uid="uid://c2xnxmwgmtb2j" path="res://data/body/body_humanoid.tres" id="3_g6r8q"]
+[ext_resource type="Script" uid="uid://50jshs2h4yoh" path="res://data/races/Race.gd" id="4_axwmq"]
+
+[resource]
+script = ExtResource("4_axwmq")
+name = "Dwarf"
+attributes = ExtResource("2_jr5a6")
+actions = Array[ExtResource("1_2vqpi")]([])
+body = ExtResource("3_g6r8q")
+flying = false
+metadata/_custom_type_script = "uid://50jshs2h4yoh"

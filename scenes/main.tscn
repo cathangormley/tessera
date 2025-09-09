@@ -1,0 +1,92 @@
+[gd_scene load_steps=15 format=3 uid="uid://ca1hyg3is5s6v"]
+
+[ext_resource type="Script" uid="uid://b3t6m4tylwaqm" path="res://scripts/battle/Battle.gd" id="1_85g3d"]
+[ext_resource type="Script" uid="uid://8mhep2ryg7bm" path="res://scripts/battle/controllers/GridController.gd" id="2_choun"]
+[ext_resource type="Script" uid="uid://wsbq8xgisptv" path="res://scripts/battle/HighlightLayer.gd" id="3_ya4ey"]
+[ext_resource type="Script" uid="uid://clskbn12xo77b" path="res://scripts/battle/controllers/UnitController.gd" id="4_eb6dy"]
+[ext_resource type="Script" uid="uid://clhpdh4xp36gh" path="res://scripts/battle/controllers/StateController.gd" id="5_trceg"]
+[ext_resource type="Script" uid="uid://cs5jesi88qfm" path="res://scripts/battle/controllers/TurnController.gd" id="6_a8y0u"]
+[ext_resource type="Resource" uid="uid://c27h38etitqlb" path="res://data/items/weapons/levin.tres" id="6_eb6dy"]
+[ext_resource type="Resource" uid="uid://djietbdutesrg" path="res://data/races/human.tres" id="6_ya4ey"]
+[ext_resource type="Resource" uid="uid://cksqrusktbla3" path="res://data/jobs/jobs/warrior.tres" id="7_eb6dy"]
+[ext_resource type="Script" uid="uid://dy5u3lt7lgwhh" path="res://scripts/battle/Camera.gd" id="7_jkv2x"]
+[ext_resource type="PackedScene" uid="uid://sjylvds03kbp" path="res://scenes/ui/unit_hud/unit_hud.tscn" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://yunvie0j3gll" path="res://scenes/ui/turn_display/turn_queue_hud.tscn" id="9_85g3d"]
+[ext_resource type="Script" uid="uid://bbncomu5nxjdd" path="res://scripts/generators/UnitGenerator.gd" id="9_trceg"]
+[ext_resource type="PackedScene" uid="uid://ch8xomnxwmew5" path="res://scenes/ui/action_menu/action_menu_hud.tscn" id="14_a8y0u"]
+
+[node name="Battle" type="Node2D"]
+script = ExtResource("1_85g3d")
+metadata/_custom_type_script = "uid://b3t6m4tylwaqm"
+
+[node name="GridController" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_choun")
+metadata/_custom_type_script = "uid://8mhep2ryg7bm"
+
+[node name="CellContainer" type="Node2D" parent="GridController"]
+
+[node name="HighlightLayer" type="Node2D" parent="GridController"]
+unique_name_in_owner = true
+script = ExtResource("3_ya4ey")
+metadata/_custom_type_script = "uid://wsbq8xgisptv"
+
+[node name="Camera" type="Camera2D" parent="GridController"]
+unique_name_in_owner = true
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+script = ExtResource("7_jkv2x")
+metadata/_custom_type_script = "uid://dy5u3lt7lgwhh"
+
+[node name="UnitController" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_eb6dy")
+levin = ExtResource("6_eb6dy")
+race_human = ExtResource("6_ya4ey")
+job_warrior = ExtResource("7_eb6dy")
+metadata/_custom_type_script = "uid://clskbn12xo77b"
+
+[node name="UnitGenerator" type="Node" parent="UnitController"]
+unique_name_in_owner = true
+script = ExtResource("9_trceg")
+metadata/_custom_type_script = "uid://bbncomu5nxjdd"
+
+[node name="StateController" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_trceg")
+metadata/_custom_type_script = "uid://clhpdh4xp36gh"
+
+[node name="TurnController" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("6_a8y0u")
+metadata/_custom_type_script = "uid://cs5jesi88qfm"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UnitHUD" parent="CanvasLayer" instance=ExtResource("8_tipki")]
+unique_name_in_owner = true
+
+[node name="TurnQueueHUD" parent="CanvasLayer" node_paths=PackedStringArray("turn_controller") instance=ExtResource("9_85g3d")]
+unique_name_in_owner = true
+offset_left = 128.0
+offset_top = 300.0
+offset_right = -128.0
+turn_controller = NodePath("../../TurnController")
+
+[node name="ActionMenuHUD" parent="CanvasLayer" instance=ExtResource("14_a8y0u")]
+unique_name_in_owner = true
+
+[connection signal="cell_hovered" from="GridController" to="." method="_on_grid_controller_cell_hovered"]
+[connection signal="cell_left_clicked" from="GridController" to="." method="_on_grid_controller_cell_left_clicked"]
+[connection signal="cell_right_clicked" from="GridController" to="." method="_on_grid_controller_cell_right_clicked"]
+[connection signal="unit_added" from="UnitController" to="." method="_on_unit_controller_unit_added"]
+[connection signal="unit_removed" from="UnitController" to="." method="_on_unit_controller_unit_removed"]
+[connection signal="action_area_highlighted" from="StateController" to="." method="_on_state_controller_action_area_highlighted"]
+[connection signal="state_changed" from="StateController" to="." method="_on_state_controller_state_changed"]
+[connection signal="unit_highlighted" from="StateController" to="." method="_on_state_controller_unit_highlighted"]
+[connection signal="turn_ended" from="TurnController" to="." method="_on_turn_controller_turn_ended"]
+[connection signal="turn_started" from="TurnController" to="." method="_on_turn_controller_turn_started"]
+[connection signal="unit_clicked" from="CanvasLayer/TurnQueueHUD" to="." method="_on_turn_queue_hud_unit_clicked"]
+[connection signal="action_hovered" from="CanvasLayer/ActionMenuHUD" to="." method="_on_action_menu_hud_action_hovered"]
+[connection signal="action_pressed" from="CanvasLayer/ActionMenuHUD" to="." method="_on_action_menu_hud_action_pressed"]
+[connection signal="menu_exited" from="CanvasLayer/ActionMenuHUD" to="." method="_on_action_menu_hud_menu_exited"]

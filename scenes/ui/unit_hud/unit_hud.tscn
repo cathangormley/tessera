@@ -1,0 +1,87 @@
+[gd_scene load_steps=4 format=3 uid="uid://sjylvds03kbp"]
+
+[ext_resource type="Theme" uid="uid://c8fcvdrij2dm3" path="res://scripts/battle/HUD/hud.tres" id="1_jutde"]
+[ext_resource type="Script" uid="uid://cse1w73opsswc" path="res://scripts/battle/HUD/UnitHUD.gd" id="2_1fjjn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
+bg_color = Color(0, 0, 0, 0.878431)
+
+[node name="UnitHUD" type="Control"]
+layout_mode = 3
+anchor_right = 0.2
+anchor_bottom = 1.0
+grow_vertical = 2
+theme = ExtResource("1_jutde")
+script = ExtResource("2_1fjjn")
+metadata/_custom_type_script = "uid://cse1w73opsswc"
+
+[node name="BackgroundPanel" type="Panel" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7mycd")
+
+[node name="UnitHUDVBox" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 77.0
+theme_override_constants/separation = 10
+
+[node name="StatsVBox" type="VBoxContainer" parent="UnitHUDVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+layout_mode = 2
+
+[node name="HPLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+layout_mode = 2
+
+[node name="SPLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+layout_mode = 2
+
+[node name="VIGLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+layout_mode = 2
+
+[node name="STRLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+layout_mode = 2
+
+[node name="DEXLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+layout_mode = 2
+
+[node name="AGILabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+layout_mode = 2
+
+[node name="INTLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+layout_mode = 2
+
+[node name="FAILabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+layout_mode = 2
+
+[node name="CooldownLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+layout_mode = 2
+
+[node name="HitLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+layout_mode = 2
+
+[node name="DodgeLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+layout_mode = 2
+
+[node name="EncumbranceLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+layout_mode = 2
+
+[node name="InventoryVBox" type="VBoxContainer" parent="UnitHUDVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SkillsVBox" type="VBoxContainer" parent="UnitHUDVBox"]
+unique_name_in_owner = true
+layout_mode = 2

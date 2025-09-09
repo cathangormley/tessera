@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TileType" load_steps=2 format=3 uid="uid://bj8r441cfmq4a"]
+
+[ext_resource type="Script" uid="uid://c73mgtyntnmxu" path="res://data/tiles/Tile.gd" id="1_byogt"]
+
+[resource]
+script = ExtResource("1_byogt")
+name = "Hill"
+walkable = true
+walking_cost = 2
+flying_cost = 1
+color = Color(0.425722, 0.220948, 1.44392e-07, 1)
+dodge = 20
+metadata/_custom_type_script = "uid://c73mgtyntnmxu"

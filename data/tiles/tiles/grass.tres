@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TileType" load_steps=2 format=3 uid="uid://ch5ir3o4edg11"]
+
+[ext_resource type="Script" uid="uid://c73mgtyntnmxu" path="res://data/tiles/Tile.gd" id="1_e41rn"]
+
+[resource]
+script = ExtResource("1_e41rn")
+name = "Grass"
+walkable = true
+walking_cost = 1
+flying_cost = 1
+color = Color(0, 0.756863, 0, 1)
+dodge = 0
+metadata/_custom_type_script = "uid://c73mgtyntnmxu"

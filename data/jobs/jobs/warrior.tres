@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Job" load_steps=3 format=3 uid="uid://cksqrusktbla3"]
+
+[ext_resource type="Resource" uid="uid://b4jw08mwduvmu" path="res://data/jobs/growths/growths_warrior.tres" id="1_78tn2"]
+[ext_resource type="Script" uid="uid://vureowemj67p" path="res://data/jobs/Job.gd" id="2_4e8md"]
+
+[resource]
+script = ExtResource("2_4e8md")
+name = "Warrior"
+attribute_growths = ExtResource("1_78tn2")
+hp = 8
+metadata/_custom_type_script = "uid://vureowemj67p"

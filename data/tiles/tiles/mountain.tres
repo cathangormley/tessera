@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TileType" load_steps=2 format=3 uid="uid://capyo8m5p8q2h"]
+
+[ext_resource type="Script" uid="uid://c73mgtyntnmxu" path="res://data/tiles/Tile.gd" id="1_3paro"]
+
+[resource]
+script = ExtResource("1_3paro")
+name = "Mountain"
+walkable = false
+walking_cost = 65536
+flying_cost = 1
+color = Color(0.2, 0.2, 0.2, 1)
+dodge = 20
+metadata/_custom_type_script = "uid://c73mgtyntnmxu"

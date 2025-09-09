@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Race" load_steps=6 format=3 uid="uid://djietbdutesrg"]
+
+[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/Action.gd" id="1_5p2e8"]
+[ext_resource type="Resource" uid="uid://ddcyts2koi451" path="res://data/action/race_actions/humanoid/strike.tres" id="2_qdqa4"]
+[ext_resource type="Resource" uid="uid://23nt7neeebvj" path="res://data/races/attributes/attributes_human.tres" id="3_c0lot"]
+[ext_resource type="Resource" uid="uid://c2xnxmwgmtb2j" path="res://data/body/body_humanoid.tres" id="4_cc81f"]
+[ext_resource type="Script" uid="uid://50jshs2h4yoh" path="res://data/races/Race.gd" id="5_cf5tu"]
+
+[resource]
+script = ExtResource("5_cf5tu")
+name = "Human"
+attributes = ExtResource("3_c0lot")
+actions = Array[ExtResource("1_5p2e8")]([ExtResource("2_qdqa4")])
+body = ExtResource("4_cc81f")
+flying = false
+metadata/_custom_type_script = "uid://50jshs2h4yoh"

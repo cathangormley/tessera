@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="Action" load_steps=7 format=3 uid="uid://ddcyts2koi451"]
+
+[ext_resource type="Script" uid="uid://bjl3ryiuya0x" path="res://data/action/effects/Effect.gd" id="1_7udfv"]
+[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/Action.gd" id="2_4a3px"]
+[ext_resource type="Script" uid="uid://ckbl671vl5kxs" path="res://data/action/effects/EffectHitForDamage.gd" id="2_egkij"]
+[ext_resource type="Script" uid="uid://dnfxkmubl3327" path="res://data/action/targets/TargetRange.gd" id="4_rowsd"]
+
+[sub_resource type="Resource" id="Resource_u7i45"]
+script = ExtResource("2_egkij")
+min_damage = 2
+max_damage = 4
+hit = 0
+scaling_attributes = Dictionary[int, float]({})
+metadata/_custom_type_script = "uid://ckbl671vl5kxs"
+
+[sub_resource type="Resource" id="Resource_1x5bt"]
+script = ExtResource("4_rowsd")
+min_range = 1
+max_range = 1
+metadata/_custom_type_script = "uid://dnfxkmubl3327"
+
+[resource]
+script = ExtResource("2_4a3px")
+name = "Strike"
+sp_cost = 0
+description = "An unarmed strike"
+target = SubResource("Resource_1x5bt")
+effects = Array[ExtResource("1_7udfv")]([SubResource("Resource_u7i45")])
+highlight_color = Color(1, 0, 0, 0.5)
+charges_used = 0
+metadata/_custom_type_script = "uid://bysafihcxa5ur"

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemArmor" load_steps=3 format=3 uid="uid://cfdtuugey5hah"]
+
+[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/Action.gd" id="1_li8kf"]
+[ext_resource type="Script" uid="uid://2chm4j814hpt" path="res://data/items/armor/ItemArmor.gd" id="2_2w1ws"]
+
+[resource]
+script = ExtResource("2_2w1ws")
+armor_slot = 0
+physical_defense = 1
+elemental_defense = 0
+item_name = "Helmet"
+description = "An ordinary helmet"
+weight = 2
+actions = Array[ExtResource("1_li8kf")]([])
+uses = 1
+metadata/_custom_type_script = "uid://2chm4j814hpt"

@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckinjxxvxtb3k"]
+
+[ext_resource type="Script" uid="uid://cehvd7aam2unu" path="res://scenes/ui/action_menu/ActionMenu.gd" id="1_f8eos"]
+[ext_resource type="Theme" uid="uid://c8fcvdrij2dm3" path="res://scripts/battle/HUD/hud.tres" id="2_uqskw"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_f8eos")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+z_index = 2
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("2_uqskw")
+
+[node name="Item" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Item"
+
+[node name="Job" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Job"
+
+[node name="Race" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Race"
+
+[node name="Skill" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Skill"
+
+[node name="General" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "General"
+
+[node name="Cancel" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cancel"
+
+[connection signal="pressed" from="VBoxContainer/Item" to="." method="_on_item_pressed"]
+[connection signal="pressed" from="VBoxContainer/Job" to="." method="_on_job_pressed"]
+[connection signal="pressed" from="VBoxContainer/Race" to="." method="_on_race_pressed"]
+[connection signal="pressed" from="VBoxContainer/Skill" to="." method="_on_skill_pressed"]
+[connection signal="pressed" from="VBoxContainer/General" to="." method="_on_general_pressed"]
+[connection signal="pressed" from="VBoxContainer/Cancel" to="." method="_on_cancel_pressed"]

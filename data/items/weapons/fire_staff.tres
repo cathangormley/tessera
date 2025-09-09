@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://kwivs1lvk2k4"]
+
+[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/Action.gd" id="1_q574s"]
+[ext_resource type="Script" uid="uid://bjl3ryiuya0x" path="res://data/action/effects/Effect.gd" id="2_2h7in"]
+[ext_resource type="Script" uid="uid://dmqq4yrii0tha" path="res://data/items/ItemData.gd" id="2_idang"]
+[ext_resource type="Resource" uid="uid://bsorfgpoysels" path="res://data/damage/elemental/damage_fire.tres" id="3_2h7in"]
+[ext_resource type="Script" uid="uid://ckbl671vl5kxs" path="res://data/action/effects/EffectHitForDamage.gd" id="3_8f374"]
+[ext_resource type="Script" uid="uid://du0c2usodfiqs" path="res://data/action/targets/TargetRangeBall.gd" id="4_niyg5"]
+
+[sub_resource type="Resource" id="Resource_niyg5"]
+script = ExtResource("3_8f374")
+min_damage = 8
+max_damage = 12
+hit = 75
+scaling_attributes = Dictionary[int, float]({
+3: 1.0
+})
+damage_type = ExtResource("3_2h7in")
+metadata/_custom_type_script = "uid://ckbl671vl5kxs"
+
+[sub_resource type="Resource" id="Resource_2d3fk"]
+script = ExtResource("4_niyg5")
+min_range = 1
+max_range = 3
+metadata/_custom_type_script = "uid://du0c2usodfiqs"
+
+[sub_resource type="Resource" id="Resource_b3nfs"]
+script = ExtResource("1_q574s")
+name = "Fireball"
+sp_cost = 8
+description = "Cast a fireball"
+target = SubResource("Resource_2d3fk")
+effects = Array[ExtResource("2_2h7in")]([SubResource("Resource_niyg5")])
+highlight_color = Color(1, 0, 0, 0.5)
+charges_used = 0
+metadata/_custom_type_script = "uid://bysafihcxa5ur"
+
+[resource]
+script = ExtResource("2_idang")
+item_name = "Fire Staff"
+description = "Staff "
+weight = 1
+actions = Array[ExtResource("1_q574s")]([SubResource("Resource_b3nfs")])
+uses = 1
+metadata/_custom_type_script = "uid://dmqq4yrii0tha"

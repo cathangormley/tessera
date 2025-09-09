@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://diqvoivgt6xpc"]
+
+[ext_resource type="PackedScene" uid="uid://bietvwts3qn73" path="res://scenes/unit/_unit.tscn" id="1_jw6s4"]
+[ext_resource type="Script" uid="uid://nvgk0bdtogu1" path="res://scripts/battle/unit/PlayerUnit.gd" id="2_xv2hk"]
+
+[node name="PlayerUnit" instance=ExtResource("1_jw6s4")]
+script = ExtResource("2_xv2hk")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+frame_progress = 0.507937
+
+[node name="ActionMenuContainer" type="Node2D" parent="." index="3"]
+unique_name_in_owner = true
+z_index = 10

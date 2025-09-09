@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Job" load_steps=3 format=3 uid="uid://c5m3myn3u1oar"]
+
+[ext_resource type="Resource" uid="uid://iv323qnyu45g" path="res://data/jobs/growths/growths_thief.tres" id="1_6flmu"]
+[ext_resource type="Script" uid="uid://vureowemj67p" path="res://data/jobs/Job.gd" id="2_yhyrn"]
+
+[resource]
+script = ExtResource("2_yhyrn")
+name = "Thief"
+attribute_growths = ExtResource("1_6flmu")
+hp = 6
+metadata/_custom_type_script = "uid://vureowemj67p"

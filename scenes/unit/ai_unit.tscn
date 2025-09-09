@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd27wi4qnuaf5"]
+
+[ext_resource type="PackedScene" uid="uid://bietvwts3qn73" path="res://scenes/unit/_unit.tscn" id="1_8jy54"]
+[ext_resource type="Script" uid="uid://dybro5vyex4qf" path="res://scripts/battle/unit/AIUnit.gd" id="2_1v5ba"]
+
+[node name="AIUnit" instance=ExtResource("1_8jy54")]
+script = ExtResource("2_1v5ba")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+flip_h = true

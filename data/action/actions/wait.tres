@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Action" load_steps=5 format=3 uid="uid://cy2585p50qipq"]
+
+[ext_resource type="Script" uid="uid://bjl3ryiuya0x" path="res://data/action/effects/Effect.gd" id="1_1bubd"]
+[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/Action.gd" id="2_bbgkg"]
+[ext_resource type="Script" uid="uid://l1ccrvujg21p" path="res://data/action/targets/TargetSelf.gd" id="3_bbgkg"]
+
+[sub_resource type="Resource" id="Resource_bc36u"]
+script = ExtResource("3_bbgkg")
+metadata/_custom_type_script = "uid://l1ccrvujg21p"
+
+[resource]
+script = ExtResource("2_bbgkg")
+name = "Wait"
+sp_cost = 0
+description = "End turn"
+target = SubResource("Resource_bc36u")
+effects = Array[ExtResource("1_1bubd")]([])
+highlight_color = Color(0, 0, 1, 0.501961)
+charges_used = 0
+metadata/_custom_type_script = "uid://bysafihcxa5ur"

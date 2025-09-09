@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Body" load_steps=2 format=3 uid="uid://c2xnxmwgmtb2j"]
+
+[ext_resource type="Script" uid="uid://dfeltgnc2td0g" path="res://data/body/Body.gd" id="1_3u532"]
+
+[resource]
+script = ExtResource("1_3u532")
+armor_slots = Array[int]([0, 1, 2, 3])
+metadata/_custom_type_script = "uid://dfeltgnc2td0g"

@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=9 format=3 uid="uid://dgt76kjc87pd7"]
+
+[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/Action.gd" id="1_er4ub"]
+[ext_resource type="Script" uid="uid://dmqq4yrii0tha" path="res://data/items/ItemData.gd" id="2_bov7c"]
+[ext_resource type="Script" uid="uid://bjl3ryiuya0x" path="res://data/action/effects/Effect.gd" id="2_slita"]
+[ext_resource type="Script" uid="uid://dtq8wy7wqexoy" path="res://data/action/effects/EffectHeal.gd" id="3_egemi"]
+[ext_resource type="Script" uid="uid://l1ccrvujg21p" path="res://data/action/targets/TargetSelf.gd" id="4_108kk"]
+
+[sub_resource type="Resource" id="Resource_aa1al"]
+script = ExtResource("3_egemi")
+min_heal = 20
+max_heal = 20
+metadata/_custom_type_script = "uid://dtq8wy7wqexoy"
+
+[sub_resource type="Resource" id="Resource_kfslq"]
+script = ExtResource("4_108kk")
+metadata/_custom_type_script = "uid://l1ccrvujg21p"
+
+[sub_resource type="Resource" id="Resource_cejam"]
+script = ExtResource("1_er4ub")
+name = "Drink"
+sp_cost = 0
+description = "Recovers 20 HP"
+target = SubResource("Resource_kfslq")
+effects = Array[ExtResource("2_slita")]([SubResource("Resource_aa1al")])
+highlight_color = Color(1, 0, 0, 0.5)
+charges_used = 1
+metadata/_custom_type_script = "uid://bysafihcxa5ur"
+
+[resource]
+script = ExtResource("2_bov7c")
+item_name = "HP Potion"
+description = ""
+weight = 1
+actions = Array[ExtResource("1_er4ub")]([SubResource("Resource_cejam")])
+uses = 1
+metadata/_custom_type_script = "uid://dmqq4yrii0tha"

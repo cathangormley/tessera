@@ -1,0 +1,67 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=14 format=3 uid="uid://c27h38etitqlb"]
+
+[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/Action.gd" id="1_kk52v"]
+[ext_resource type="Script" uid="uid://bjl3ryiuya0x" path="res://data/action/effects/Effect.gd" id="2_00naf"]
+[ext_resource type="Script" uid="uid://dmqq4yrii0tha" path="res://data/items/ItemData.gd" id="2_ns7rb"]
+[ext_resource type="Script" uid="uid://ckbl671vl5kxs" path="res://data/action/effects/EffectHitForDamage.gd" id="3_dw0a8"]
+[ext_resource type="Resource" uid="uid://bedoqgur666" path="res://data/damage/physical/damage_slashing.tres" id="3_n1e0k"]
+[ext_resource type="Resource" uid="uid://bkgt65hmm68u6" path="res://data/action/targets/TargetAdjacent.tres" id="4_n1e0k"]
+[ext_resource type="Script" uid="uid://du0c2usodfiqs" path="res://data/action/targets/TargetRangeBall.gd" id="5_4jak0"]
+[ext_resource type="Resource" uid="uid://dfpbqpefl1kk1" path="res://data/damage/elemental/damage_electric.tres" id="6_4jak0"]
+
+[sub_resource type="Resource" id="Resource_h0qsm"]
+script = ExtResource("3_dw0a8")
+min_damage = 8
+max_damage = 14
+hit = 85
+scaling_attributes = Dictionary[int, float]({
+1: 1.0
+})
+damage_type = ExtResource("3_n1e0k")
+metadata/_custom_type_script = "uid://ckbl671vl5kxs"
+
+[sub_resource type="Resource" id="Resource_7d11n"]
+script = ExtResource("1_kk52v")
+name = "Attack"
+sp_cost = 0
+description = "Normal Attack"
+target = ExtResource("4_n1e0k")
+effects = Array[ExtResource("2_00naf")]([SubResource("Resource_h0qsm")])
+highlight_color = Color(1, 0, 0, 0.5)
+charges_used = 0
+metadata/_custom_type_script = "uid://bysafihcxa5ur"
+
+[sub_resource type="Resource" id="Resource_mlt0p"]
+script = ExtResource("3_dw0a8")
+min_damage = 7
+max_damage = 15
+hit = 70
+scaling_attributes = Dictionary[int, float]({})
+damage_type = ExtResource("6_4jak0")
+metadata/_custom_type_script = "uid://ckbl671vl5kxs"
+
+[sub_resource type="Resource" id="Resource_v0o1q"]
+script = ExtResource("5_4jak0")
+min_range = 0
+max_range = 0
+metadata/_custom_type_script = "uid://du0c2usodfiqs"
+
+[sub_resource type="Resource" id="Resource_cl6xo"]
+script = ExtResource("1_kk52v")
+name = "Call Lightning"
+sp_cost = 8
+description = "Call lightning to strike user"
+target = SubResource("Resource_v0o1q")
+effects = Array[ExtResource("2_00naf")]([SubResource("Resource_mlt0p")])
+highlight_color = Color(1, 0, 0, 0.5)
+charges_used = 0
+metadata/_custom_type_script = "uid://bysafihcxa5ur"
+
+[resource]
+script = ExtResource("2_ns7rb")
+item_name = "Levin"
+description = "A sword that can call lightning upon the user"
+weight = 5
+actions = Array[ExtResource("1_kk52v")]([SubResource("Resource_7d11n"), SubResource("Resource_cl6xo")])
+uses = 1
+metadata/_custom_type_script = "uid://dmqq4yrii0tha"

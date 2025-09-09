@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://yunvie0j3gll"]
+
+[ext_resource type="Theme" uid="uid://c8fcvdrij2dm3" path="res://scripts/battle/HUD/hud.tres" id="1_05wai"]
+[ext_resource type="Script" uid="uid://ddv8k31h4ibmi" path="res://scenes/ui/turn_display/turn_queue_hud.gd" id="1_kru7x"]
+
+[node name="TurnQueueHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_05wai")
+script = ExtResource("1_kru7x")
+metadata/_custom_type_script = "uid://ddv8k31h4ibmi"
+
+[node name="QueueContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

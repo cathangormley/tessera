@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=9 format=3 uid="uid://cnappueoufxhw"]
+
+[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/Action.gd" id="1_21is8"]
+[ext_resource type="Script" uid="uid://bjl3ryiuya0x" path="res://data/action/effects/Effect.gd" id="2_t2so5"]
+[ext_resource type="Script" uid="uid://dtq8wy7wqexoy" path="res://data/action/effects/EffectHeal.gd" id="3_40wmg"]
+[ext_resource type="Script" uid="uid://dnfxkmubl3327" path="res://data/action/targets/TargetRange.gd" id="4_jtekb"]
+[ext_resource type="Script" uid="uid://dmqq4yrii0tha" path="res://data/items/ItemData.gd" id="5_o6pwx"]
+
+[sub_resource type="Resource" id="Resource_p4344"]
+script = ExtResource("3_40wmg")
+min_heal = 8
+max_heal = 12
+metadata/_custom_type_script = "uid://dtq8wy7wqexoy"
+
+[sub_resource type="Resource" id="Resource_jvtwc"]
+script = ExtResource("4_jtekb")
+min_range = 1
+max_range = 1
+metadata/_custom_type_script = "uid://dnfxkmubl3327"
+
+[sub_resource type="Resource" id="Resource_fg5kw"]
+script = ExtResource("1_21is8")
+name = "Heal"
+sp_cost = 4
+description = "Heal adjacent unit"
+target = SubResource("Resource_jvtwc")
+effects = Array[ExtResource("2_t2so5")]([SubResource("Resource_p4344")])
+highlight_color = Color(0, 1, 0, 0.501961)
+charges_used = 0
+metadata/_custom_type_script = "uid://bysafihcxa5ur"
+
+[resource]
+script = ExtResource("5_o6pwx")
+item_name = "Staff"
+description = "A healing staff"
+weight = 3
+actions = Array[ExtResource("1_21is8")]([SubResource("Resource_fg5kw")])
+uses = 1
+metadata/_custom_type_script = "uid://dmqq4yrii0tha"
