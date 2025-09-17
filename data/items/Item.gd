@@ -1,9 +1,11 @@
+## An actual item instance
 extends Node
 class_name Item
 
 signal depleted(item: Item)
 
-var item_data: ItemData
+# The item template that was used to construct this item; may be null
+var item_template: ItemTemplate
 
 # Properties of the item
 var item_name: String
@@ -17,23 +19,26 @@ var uses_left: int = 1:
 		if uses_left <= 0:
 			depleted.emit(self)
 
-
 ## The list of actions this item grants the unit
 var actions: Array[Action] = []
 
 
-func _init(_item_data: ItemData) -> void:
-	item_data = _item_data
+func use_item_template(_item_template: ItemTemplate) -> Item:
+	item_template = _item_template
 	
-	item_name = item_data.item_name
-	description = item_data.description
-	weight = item_data.weight
+	item_name = _item_template.item_name
+	description = _item_template.description
+	weight = _item_template.weight
 	
-	max_uses = item_data.uses
-	uses_left = max_uses
+	max_uses = _item_template.uses
+	uses_left = _item_template.uses
 	
-	for action in item_data.actions:
-		actions.append((action.duplicate() as Action).set_item(self))
+	for action_template in _item_template.action_templates:
+		actions.append(
+			action_template.to_action().set_item(self)
+		)
+	
+	return self
 
 
 func consume_charges(n: int = 1) -> void:

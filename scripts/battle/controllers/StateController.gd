@@ -12,6 +12,8 @@ signal unit_highlighted(unit: Unit)
 
 signal action_area_highlighted(action: Action)
 
+signal unit_hovered_over_cell(unit: Unit, cell: Cell)
+
 enum State {
 	SELECT_UNIT,		## Unselected
 	MOVE_UNIT,			## Choosing where to move
@@ -53,7 +55,7 @@ func cell_hovered(cell: Cell):
 			unit_highlighted.emit(cell.unit)
 		State.MOVE_UNIT:
 			if cell in turn_unit.reachable_cells:
-				turn_unit.hover_over_cell(cell)
+				unit_hovered_over_cell.emit(turn_unit, cell)
 		State.SELECT_ACTION_AREA:
 			selected_action.target.update_selected_area(cell)
 			action_area_highlighted.emit(selected_action)

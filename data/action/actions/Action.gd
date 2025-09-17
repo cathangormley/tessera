@@ -1,31 +1,51 @@
-## Represents any kind of action a unit can take in battle
-## E.g. attacking, healing and other special actions
-## Actions are composed of effects: Array[Effect]
-extends Resource
+## An instance of an action
+extends Node
 class_name Action
 
-@export var name: String
-@export var sp_cost: int
-@export var description: String = "This is an action"
+## The template used to create this action; may be null
+var action_template: ActionTemplate
+
+var action_name: String
+var sp_cost: int
+var description: String
 
 ## The type of target area shape for the action
-@export var target: Target
+var target: Target
 
 ## The list of effects that occur when this action is executed
-@export var effects: Array[Effect] = []
+var effects: Array[Effect] = []
 
 ## The highlight color of the action
 ## Typically red for attacks, etc.
-@export var highlight_color: Color = Color(1, 0, 0, 0.5)
+var highlight_color: Color = Color(1, 0, 0, 0.5)
 
 ## How many item charges this action consumes
-@export var charges_used: int = 0
+var charges_used: int = 0
 
-var item: Item = null
+## The item to which this action belongs; may be null
+var item: Item
+
+
+func use_action_template(_action_template: ActionTemplate) -> Action:
+	action_template = _action_template
+	
+	action_name = _action_template.action_name
+	sp_cost = _action_template.sp_cost
+	description = _action_template.description
+
+	target = _action_template.target
+	highlight_color = _action_template.highlight_color
+
+	charges_used = _action_template.charges_used
+	
+	for effect in _action_template.effects:
+		effects.append(effect.duplicate())
+	
+	return self
 
 
 ## Perform the action with user on the area specified
-func execute(user: Unit, target_area: CellArea):
+func execute(user: Unit, target_area: CellArea) -> void:
 	user.stats.current_sp -= sp_cost
 	for effect in effects:
 		effect.execute(user, target_area)

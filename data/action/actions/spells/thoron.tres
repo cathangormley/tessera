@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="ActionSpellTemplate" load_steps=11 format=3 uid="uid://dhttf3aqtsoja"]
+
+[ext_resource type="Script" uid="uid://bjl3ryiuya0x" path="res://data/action/effects/Effect.gd" id="1_4ltli"]
+[ext_resource type="Script" uid="uid://cmug76t331gyw" path="res://data/action/effects/targeting/EffectTargeting.gd" id="2_1sl38"]
+[ext_resource type="Resource" uid="uid://c7tteck58ksdo" path="res://data/damage/physical/damage_bludgeoning.tres" id="3_s6qf0"]
+[ext_resource type="Script" uid="uid://m1qxrdcpr8y7" path="res://data/action/effects/targeting/EffectDamage.gd" id="4_yent6"]
+[ext_resource type="Script" uid="uid://fomos2h3ieel" path="res://data/action/targets/TargetLine.gd" id="5_1sl38"]
+[ext_resource type="Script" uid="uid://d2ek68noueg0j" path="res://data/action/effects/targeting/EffectHit.gd" id="5_tpbbq"]
+[ext_resource type="Script" uid="uid://bqdwh3im3yn81" path="res://data/action/actions/spells/ActionSpellTemplate.gd" id="6_1sl38"]
+
+[sub_resource type="Resource" id="Resource_u50t2"]
+script = ExtResource("4_yent6")
+min_damage = 6
+max_damage = 12
+scaling_attributes = Dictionary[int, float]({
+4: 1.0
+})
+damage_type = ExtResource("3_s6qf0")
+metadata/_custom_type_script = "uid://m1qxrdcpr8y7"
+
+[sub_resource type="Resource" id="Resource_g05w4"]
+script = ExtResource("5_tpbbq")
+hit = 80
+on_hit_effects = Array[ExtResource("2_1sl38")]([SubResource("Resource_u50t2")])
+metadata/_custom_type_script = "uid://d2ek68noueg0j"
+
+[sub_resource type="Resource" id="Resource_yent6"]
+script = ExtResource("5_1sl38")
+line_range = 4
+metadata/_custom_type_script = "uid://fomos2h3ieel"
+
+[resource]
+script = ExtResource("6_1sl38")
+action_name = ""
+sp_cost = 11
+description = "Shoot a line of lightning"
+target = SubResource("Resource_yent6")
+effects = Array[ExtResource("1_4ltli")]([SubResource("Resource_g05w4")])
+highlight_color = Color(1, 0, 0, 0.5)
+charges_used = 0
+metadata/_custom_type_script = "uid://bqdwh3im3yn81"

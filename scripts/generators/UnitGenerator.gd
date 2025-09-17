@@ -19,7 +19,7 @@ func generate_player_unit(level: int) -> PlayerUnit:
 	var base_attributes := generate_player_base_attributes_array()
 	var job := choose_player_job(base_attributes, race)
 	
-	player_unit.generate_stats(base_attributes, race, job, level)
+	player_unit.initialize(base_attributes, race, job, level)
 	add_skills(player_unit)
 	return player_unit
 
@@ -28,7 +28,7 @@ func generate_player_unit(level: int) -> PlayerUnit:
 ##
 ## Uses a standard array in a random order
 func generate_player_base_attributes_array() -> AttributeArray:
-	var array: Array[float] = [3, 2, 1, 0, 0, -1]
+	var array: Array[int] = [3, 2, 1, 0, 0, -1]
 	array.shuffle()
 	return AttributeArray.from_array(array)
 
@@ -64,7 +64,7 @@ func generate_ai_unit(level: int) -> AIUnit:
 	var base_attributes := generate_player_base_attributes_array()
 	var job := choose_player_job(base_attributes, race)
 	
-	ai_unit.generate_stats(base_attributes, race, job, level)
+	ai_unit.initialize(base_attributes, race, job, level)
 	add_skills(ai_unit)
 	return ai_unit
 

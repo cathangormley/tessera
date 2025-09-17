@@ -9,6 +9,7 @@ var cells: Array[Cell]
 func _init(_cells: Array[Cell]) -> void:
 	cells = _cells
 
+
 ## Returns an array of units within the CellArea
 func get_units() -> Array[Unit]:
 	var units: Array[Unit]

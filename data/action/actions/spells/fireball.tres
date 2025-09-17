@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="ActionSpellTemplate" load_steps=11 format=3 uid="uid://b32cvpiwxdydy"]
+
+[ext_resource type="Script" uid="uid://bjl3ryiuya0x" path="res://data/action/effects/Effect.gd" id="1_e8xi8"]
+[ext_resource type="Script" uid="uid://cmug76t331gyw" path="res://data/action/effects/targeting/EffectTargeting.gd" id="2_bvo0w"]
+[ext_resource type="Resource" uid="uid://bsorfgpoysels" path="res://data/damage/elemental/damage_fire.tres" id="3_bvo0w"]
+[ext_resource type="Script" uid="uid://m1qxrdcpr8y7" path="res://data/action/effects/targeting/EffectDamage.gd" id="4_1oenj"]
+[ext_resource type="Script" uid="uid://du0c2usodfiqs" path="res://data/action/targets/TargetRangeBall.gd" id="5_bvo0w"]
+[ext_resource type="Script" uid="uid://d2ek68noueg0j" path="res://data/action/effects/targeting/EffectHit.gd" id="5_g7040"]
+[ext_resource type="Script" uid="uid://bqdwh3im3yn81" path="res://data/action/actions/spells/ActionSpellTemplate.gd" id="6_bvo0w"]
+
+[sub_resource type="Resource" id="Resource_ydklh"]
+script = ExtResource("4_1oenj")
+min_damage = 8
+max_damage = 12
+scaling_attributes = Dictionary[int, float]({
+4: 1.0
+})
+damage_type = ExtResource("3_bvo0w")
+metadata/_custom_type_script = "uid://m1qxrdcpr8y7"
+
+[sub_resource type="Resource" id="Resource_5tky2"]
+script = ExtResource("5_g7040")
+hit = 75
+on_hit_effects = Array[ExtResource("2_bvo0w")]([SubResource("Resource_ydklh")])
+metadata/_custom_type_script = "uid://d2ek68noueg0j"
+
+[sub_resource type="Resource" id="Resource_g7040"]
+script = ExtResource("5_bvo0w")
+min_range = 2
+max_range = 4
+metadata/_custom_type_script = "uid://du0c2usodfiqs"
+
+[resource]
+script = ExtResource("6_bvo0w")
+action_name = "Fireball"
+sp_cost = 12
+description = "Conjure a fireball"
+target = SubResource("Resource_g7040")
+effects = Array[ExtResource("1_e8xi8")]([SubResource("Resource_5tky2")])
+highlight_color = Color(1, 0, 0, 0.5)
+charges_used = 0
+metadata/_custom_type_script = "uid://bqdwh3im3yn81"

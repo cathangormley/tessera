@@ -9,13 +9,15 @@ signal action_button_pressed(action: Action)
 @onready var inventory_vbox = %InventoryVBox
 @onready var skills_vbox = %SkillsVBox
 
-## Core Stats
-@onready var vig_label = %StatsVBox/VIGLabel
-@onready var str_label = %StatsVBox/STRLabel
-@onready var dex_label = %StatsVBox/DEXLabel
-@onready var agi_label = %StatsVBox/AGILabel
-@onready var int_label = %StatsVBox/INTLabel
-@onready var fai_label = %StatsVBox/FAILabel
+## Core Attributes
+@onready var vig_label: Label = %VIGLabel
+@onready var str_label: Label = %STRLabel
+@onready var dex_label: Label = %DEXLabel
+@onready var agi_label: Label = %AGILabel
+@onready var int_label: Label = %INTLabel
+@onready var fai_label: Label = %FAILabel
+
+@onready var attribute_labels: Array[Label] = [vig_label, str_label, dex_label, agi_label, int_label, fai_label]
 
 ## HP / SP
 @onready var hp_label = %StatsVBox/HPLabel
@@ -27,6 +29,9 @@ signal action_button_pressed(action: Action)
 
 @onready var encumbrance_label = %StatsVBox/EncumbranceLabel
 
+@onready var physical_defense_label = %PhysicalDefenseLabel
+@onready var elemental_defense_label = %ElementalDefenseLabel
+
 @onready var name_label = %StatsVBox/NameLabel
 ## Label for e.g. "Lvl. 5 Human Warrior"
 @onready var desc_label = %StatsVBox/DescLabel
@@ -34,33 +39,59 @@ signal action_button_pressed(action: Action)
 
 func highlight_unit_hud(unit: Unit) -> void:
 	display_unit_stats(unit)
+	display_unit_attributes(unit)
 	display_unit_inventory(unit)
 	display_unit_skills(unit)
 
 
+## Configure text, tooltip, etc. of label
+func configure_label(label: Label, text_format: String, stat: StatCalculation) -> void:
+	label.text = text_format % stat.result
+	label.tooltip_text = stat.get_calculation()
+
+
 func display_unit_stats(unit: Unit) -> void:
-	for label: Label in stats_vbox.get_children():
-		label.text = ""
+	for label in stats_vbox.get_children():
+		if label is Label:
+			label.text = ""
 	
 	if unit == null: return
 	
 	name_label.text = unit.unit_name
 	desc_label.text = "LV %d %s %s" % [unit.stats.job_level, unit.stats.race.name, unit.stats.job.name]
 	
-	hp_label.text = "HP: %d/%d" % [unit.stats.current_hp, unit.stats.max_hp]
-	sp_label.text = "SP: %d/%d" % [unit.stats.current_sp, unit.stats.max_sp]
+	hp_label.text = "HP: %d/%d" % [unit.stats.current_hp, unit.stats.max_hp.result]
+	hp_label.tooltip_text = unit.stats.max_hp.get_calculation()
 	
-	vig_label.text = "VIG: %d" % unit.stats.vigor
-	str_label.text = "STR: %d" % unit.stats.strength
-	dex_label.text = "DEX: %d" % unit.stats.dexterity
-	agi_label.text = "AGI: %d" % unit.stats.agility
-	int_label.text = "INT: %d" % unit.stats.intellect
-	fai_label.text = "FAI: %d" % unit.stats.faith
+	sp_label.text = "SP: %d/%d" % [unit.stats.current_sp, unit.stats.max_sp.result]
+	sp_label.tooltip_text = unit.stats.max_sp.get_calculation()
+
+	cooldown_label.text = "Speed: %d (%0.2f)" % [unit.stats.speed.result, unit.stats.cooldown]
+	cooldown_label.tooltip_text = unit.stats.speed.get_calculation()
+
+	configure_label(hit_label, "Hit: %+d%%", unit.stats.hit)
+	configure_label(dodge_label, "Dodge: %+d%%", unit.stats.dodge)
 	
-	cooldown_label.text = "Cooldown: %0.2f" % unit.stats.cooldown
-	hit_label.text = "Hit: %+d%%" % unit.stats.hit
-	dodge_label.text = "Dodge: %+d%%" % unit.stats.dodge
-	encumbrance_label.text = "Carry: %d/%d (%s)" % [unit.stats.carry, unit.stats.carry_capacity, encumbrance_text[unit.stats.encumbrance]]
+	encumbrance_label.text = "Carry: %d/%d (%s)" % [unit.stats.carry,
+			unit.stats.carry_capacity.result, encumbrance_text[unit.stats.encumbrance]]
+	encumbrance_label.tooltip_text = unit.stats.carry_capacity.get_calculation()
+	
+	configure_label(physical_defense_label, "Phys. Def.: %d", unit.stats.physical_defense)
+	configure_label(elemental_defense_label, "Elem. Def.: %d", unit.stats.elemental_defense)
+
+
+func display_unit_attributes(unit: Unit) -> void:
+	for label in attribute_labels:
+		label.text = ""
+	
+	if unit == null: return
+	
+	configure_label(vig_label, "VIG: %d", unit.stats.vigor)
+	configure_label(str_label, "STR: %d", unit.stats.strength)
+	configure_label(dex_label, "DEX: %d", unit.stats.dexterity)
+	configure_label(agi_label, "AGI: %d", unit.stats.agility)
+	configure_label(int_label, "INT: %d", unit.stats.intellect)
+	configure_label(fai_label, "FAI: %d", unit.stats.faith)
 
 
 func display_unit_inventory(unit: Unit) -> void:

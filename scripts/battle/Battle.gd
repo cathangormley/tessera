@@ -65,7 +65,7 @@ func _on_unit_moved(unit: Unit, _old_cell: Cell, _new_cell: Cell) -> void:
 
 
 func _on_action_executed(unit: Unit, action: Action, _target_area: CellArea) -> void:
-	print("Action was executed by " + unit.unit_name + ": " + action.name)
+	print("Action was executed by " + unit.unit_name + ": " + action.action_name)
 	turn_controller.end_turn()
 
 
@@ -133,11 +133,16 @@ func _on_action_menu_hud_menu_exited() -> void:
 
 
 func _on_action_menu_hud_action_hovered(action: Action) -> void:
-	if action != null: print("Action button was hovered: ", action.name)
+	if action != null: print("Action button was hovered: ", action.action_name)
 	if state_controller.state == state_controller.State.SELECT_ACTION:
 		grid_controller.highlight_action(action)
 
 
 func _on_action_menu_hud_action_pressed(action: Action) -> void:
-	print("Action button was pressed: ", action.name)
+	print("Action button was pressed: ", action.action_name)
 	state_controller.action_button_pressed(action)
+
+
+func _on_state_controller_unit_hovered_over_cell(unit: Unit, cell: Cell) -> void:
+	unit.hover_over_cell(cell)
+	unit_hud.highlight_unit_hud(unit)

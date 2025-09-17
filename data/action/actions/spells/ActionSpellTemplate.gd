@@ -1,0 +1,2 @@
+extends ActionTemplate
+class_name ActionSpellTemplate

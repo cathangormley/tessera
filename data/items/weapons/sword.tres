@@ -1,64 +1,79 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=13 format=3 uid="uid://nbuaf3krr7kr"]
+[gd_resource type="Resource" script_class="ItemTemplate" load_steps=18 format=3 uid="uid://nbuaf3krr7kr"]
 
-[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/Action.gd" id="1_2qqpx"]
+[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/ActionTemplate.gd" id="1_asvlo"]
 [ext_resource type="Script" uid="uid://bjl3ryiuya0x" path="res://data/action/effects/Effect.gd" id="2_g27iu"]
 [ext_resource type="Resource" uid="uid://bedoqgur666" path="res://data/damage/physical/damage_slashing.tres" id="3_g27iu"]
-[ext_resource type="Script" uid="uid://ckbl671vl5kxs" path="res://data/action/effects/EffectHitForDamage.gd" id="3_ki50l"]
+[ext_resource type="Script" uid="uid://cmug76t331gyw" path="res://data/action/effects/targeting/EffectTargeting.gd" id="3_njmhg"]
+[ext_resource type="Resource" uid="uid://c7tteck58ksdo" path="res://data/damage/physical/damage_bludgeoning.tres" id="4_ffe3h"]
 [ext_resource type="Resource" uid="uid://bkgt65hmm68u6" path="res://data/action/targets/TargetAdjacent.tres" id="4_njmhg"]
 [ext_resource type="Script" uid="uid://dd6c0mmu4a1n2" path="res://data/action/targets/TargetCone.gd" id="5_asvlo"]
-[ext_resource type="Script" uid="uid://dmqq4yrii0tha" path="res://data/items/ItemData.gd" id="5_m42mj"]
+[ext_resource type="Script" uid="uid://m1qxrdcpr8y7" path="res://data/action/effects/targeting/EffectDamage.gd" id="5_ffe3h"]
+[ext_resource type="Script" uid="uid://d2ek68noueg0j" path="res://data/action/effects/targeting/EffectHit.gd" id="6_ffe3h"]
+[ext_resource type="Script" uid="uid://dmqq4yrii0tha" path="res://data/items/ItemTemplate.gd" id="10_py7y6"]
 
-[sub_resource type="Resource" id="Resource_m42mj"]
-script = ExtResource("3_ki50l")
+[sub_resource type="Resource" id="Resource_eefke"]
+script = ExtResource("5_ffe3h")
 min_damage = 4
-max_damage = 8
-hit = 80
+max_damage = 6
 scaling_attributes = Dictionary[int, float]({
 1: 1.0
 })
-damage_type = ExtResource("3_g27iu")
-metadata/_custom_type_script = "uid://ckbl671vl5kxs"
+damage_type = ExtResource("4_ffe3h")
+metadata/_custom_type_script = "uid://m1qxrdcpr8y7"
 
-[sub_resource type="Resource" id="Resource_g27iu"]
-script = ExtResource("1_2qqpx")
-name = "Sword: Attack"
+[sub_resource type="Resource" id="Resource_m6eht"]
+script = ExtResource("6_ffe3h")
+hit = 80
+on_hit_effects = Array[ExtResource("3_njmhg")]([SubResource("Resource_eefke")])
+metadata/_custom_type_script = "uid://d2ek68noueg0j"
+
+[sub_resource type="Resource" id="Resource_vn1el"]
+script = ExtResource("1_asvlo")
+action_name = "Slash"
 sp_cost = 0
-description = "This is an action"
+description = "A basic slash"
 target = ExtResource("4_njmhg")
-effects = Array[ExtResource("2_g27iu")]([SubResource("Resource_m42mj")])
+effects = Array[ExtResource("2_g27iu")]([SubResource("Resource_m6eht")])
 highlight_color = Color(1, 0, 0, 0.5)
 charges_used = 0
 metadata/_custom_type_script = "uid://bysafihcxa5ur"
 
-[sub_resource type="Resource" id="Resource_2qqpx"]
-script = ExtResource("3_ki50l")
-min_damage = 2
+[sub_resource type="Resource" id="Resource_ldmrk"]
+script = ExtResource("5_ffe3h")
+min_damage = 4
 max_damage = 6
-hit = 70
-scaling_attributes = Dictionary[int, float]({})
+scaling_attributes = Dictionary[int, float]({
+1: 1.0
+})
 damage_type = ExtResource("3_g27iu")
-metadata/_custom_type_script = "uid://ckbl671vl5kxs"
+metadata/_custom_type_script = "uid://m1qxrdcpr8y7"
 
-[sub_resource type="Resource" id="Resource_njmhg"]
+[sub_resource type="Resource" id="Resource_u71jj"]
+script = ExtResource("6_ffe3h")
+hit = 70
+on_hit_effects = Array[ExtResource("3_njmhg")]([SubResource("Resource_ldmrk")])
+metadata/_custom_type_script = "uid://d2ek68noueg0j"
+
+[sub_resource type="Resource" id="Resource_lbo12"]
 script = ExtResource("5_asvlo")
 cone_range = 1
 metadata/_custom_type_script = "uid://dd6c0mmu4a1n2"
 
-[sub_resource type="Resource" id="Resource_ki50l"]
-script = ExtResource("1_2qqpx")
-name = "Wide Slash"
-sp_cost = 6
-description = "Do a wide slash, hitting 2 enemies at once"
-target = SubResource("Resource_njmhg")
-effects = Array[ExtResource("2_g27iu")]([SubResource("Resource_2qqpx")])
+[sub_resource type="Resource" id="Resource_hrqo3"]
+script = ExtResource("1_asvlo")
+action_name = "Wide Slash"
+sp_cost = 4
+description = "Hit 2 adjacent units"
+target = SubResource("Resource_lbo12")
+effects = Array[ExtResource("2_g27iu")]([SubResource("Resource_u71jj")])
 highlight_color = Color(1, 0, 0, 0.5)
 charges_used = 0
 metadata/_custom_type_script = "uid://bysafihcxa5ur"
 
 [resource]
-script = ExtResource("5_m42mj")
+script = ExtResource("10_py7y6")
 item_name = "Sword"
 description = "A basic sword"
 weight = 4
-actions = Array[ExtResource("1_2qqpx")]([SubResource("Resource_g27iu"), SubResource("Resource_ki50l")])
+action_templates = Array[ExtResource("1_asvlo")]([SubResource("Resource_vn1el"), SubResource("Resource_hrqo3")])
 uses = 1

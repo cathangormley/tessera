@@ -44,39 +44,85 @@ layout_mode = 2
 
 [node name="HPLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
 layout_mode = 2
+mouse_filter = 0
 
 [node name="SPLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
 layout_mode = 2
+mouse_filter = 0
 
-[node name="VIGLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+[node name="AttributeVBox" type="VBoxContainer" parent="UnitHUDVBox/StatsVBox"]
 layout_mode = 2
 
-[node name="STRLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+[node name="HBox1" type="HBoxContainer" parent="UnitHUDVBox/StatsVBox/AttributeVBox"]
 layout_mode = 2
 
-[node name="DEXLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+[node name="VIGLabel" type="Label" parent="UnitHUDVBox/StatsVBox/AttributeVBox/HBox1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+mouse_filter = 0
+
+[node name="STRLabel" type="Label" parent="UnitHUDVBox/StatsVBox/AttributeVBox/HBox1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+mouse_filter = 0
+
+[node name="HBox2" type="HBoxContainer" parent="UnitHUDVBox/StatsVBox/AttributeVBox"]
 layout_mode = 2
 
-[node name="AGILabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+[node name="DEXLabel" type="Label" parent="UnitHUDVBox/StatsVBox/AttributeVBox/HBox2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+mouse_filter = 0
+
+[node name="AGILabel" type="Label" parent="UnitHUDVBox/StatsVBox/AttributeVBox/HBox2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+mouse_filter = 0
+
+[node name="HBox3" type="HBoxContainer" parent="UnitHUDVBox/StatsVBox/AttributeVBox"]
 layout_mode = 2
 
-[node name="INTLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+[node name="INTLabel" type="Label" parent="UnitHUDVBox/StatsVBox/AttributeVBox/HBox3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+mouse_filter = 0
 
-[node name="FAILabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+[node name="FAILabel" type="Label" parent="UnitHUDVBox/StatsVBox/AttributeVBox/HBox3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+mouse_filter = 0
 
 [node name="CooldownLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
 layout_mode = 2
+mouse_filter = 0
 
 [node name="HitLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
 layout_mode = 2
+mouse_filter = 0
 
 [node name="DodgeLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
 layout_mode = 2
+mouse_filter = 0
 
 [node name="EncumbranceLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
 layout_mode = 2
+mouse_filter = 0
+
+[node name="PhysicalDefenseLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 0
+
+[node name="ElementalDefenseLabel" type="Label" parent="UnitHUDVBox/StatsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 0
 
 [node name="InventoryVBox" type="VBoxContainer" parent="UnitHUDVBox"]
 unique_name_in_owner = true

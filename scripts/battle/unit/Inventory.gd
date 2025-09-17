@@ -1,6 +1,8 @@
 extends Node
 class_name Inventory
 
+@export var unit: Unit
+
 ## The items in the unit's inventory, including the armor it has equipped
 var items: Array[Item]
 
@@ -32,13 +34,18 @@ func _on_item_depleted(item: Item) -> void:
 	remove_item(item)
 
 
-func equip(item: ItemArmor) -> bool:
+func equip_armor(item: ItemArmor) -> bool:
 	assert(item.armor_slot in armor_slots, "Tried equipping armor without armor slot")
 	armor[item.armor_slot] = item
+	unit.stats.physical_defense.add_modifier(item, item.item_name, func(): return item.physical_defense)
+	unit.stats.elemental_defense.add_modifier(item, item.item_name, func(): return item.elemental_defense)
 	return true
 
 
-func unequip(slot: Body.ArmorSlot) -> void:
+func unequip_armor(slot: Body.ArmorSlot) -> void:
+	var item := armor[slot]
+	unit.stats.physical_defense.remove_source_from_modifiers(item)
+	unit.stats.elemental_defense.remove_source_from_modifiers(item)
 	armor[slot] = null
 
 

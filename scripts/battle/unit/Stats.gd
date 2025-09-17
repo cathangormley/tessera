@@ -8,9 +8,6 @@ signal died()
 ## The unit that these stats belong to
 @export var unit: Unit
 
-## The raw stats the unit has without modifiers
-var base_attributes: AttributeArray
-
 var race: Race
 
 var job: Job
@@ -18,53 +15,63 @@ var job_level: int
 
 var skills: Array[Skill]
 
-var attributes: AttributeArray: get = get_attributes
+var attributes: AttributeArray:
+	get():
+		return AttributeArray.from_array([vigor.result, strength.result,
+				dexterity.result, agility.result,
+				intellect.result,faith.result])
+
+var attrs: Dictionary
 
 
-func get_attributes() -> AttributeArray:
-	var attrs: AttributeArray = AttributeArray.ZERO
-	attrs = attrs.add(base_attributes)
-	if job != null:
-		attrs = attrs.add(job.attribute_growths.multiply(job_level))
-	if race != null:
-		attrs = attrs.add(race.attributes)
-
-	for skill in skills:
-		attrs._vigor = skill.behavior.modify_vigor(attrs._vigor)
-		attrs._strength = skill.behavior.modify_strength(attrs._strength)
-		attrs._dexterity = skill.behavior.modify_dexterity(attrs._dexterity)
-		attrs._agility = skill.behavior.modify_agility(attrs._agility)
-		attrs._intellect = skill.behavior.modify_intellect(attrs._intellect)
-		attrs._faith = skill.behavior.modify_faith(attrs._faith)
-	
-	return attrs
+func get_attribute_map() -> Dictionary:
+	return {
+		AttributeArray.Attribute.VIG: vigor,
+		AttributeArray.Attribute.STR: strength,
+		AttributeArray.Attribute.DEX: dexterity,
+		AttributeArray.Attribute.AGI: agility,
+		AttributeArray.Attribute.INT: intellect,
+		AttributeArray.Attribute.FAI: faith,
+	}
 
 
 ## Core Attributes
-var vigor: int:
-	get: return int(attributes.get_attr(AttributeArray.Attribute.VIG))
-var strength: int:
-	get: return int(attributes.get_attr(AttributeArray.Attribute.STR))
-var dexterity: int:
-	get: return int(attributes.get_attr(AttributeArray.Attribute.DEX))
-var agility: int:
-	get: return int(attributes.get_attr(AttributeArray.Attribute.AGI))
-var intellect: int:
-	get: return int(attributes.get_attr(AttributeArray.Attribute.INT))
-var faith: int:
-	get: return int(attributes.get_attr(AttributeArray.Attribute.FAI))
+var vigor: StatCalculation
+var strength: StatCalculation
+var dexterity: StatCalculation
+var agility: StatCalculation
+var intellect: StatCalculation
+var faith: StatCalculation
 
 # Derived Stats
 var base_movement: int = 5
 
-var max_hp: int: get = get_max_hp
-var max_sp: int: get = get_max_sp
-var cooldown: float: get = get_cooldown
+
+var max_hp := (
+	StatCalculation.new(10)
+		.add_modifier(null, "Job", func(): return job_level * job.hp)
+		.add_modifier(null, "Vigor", func(): return job_level * vigor.result)
+)
+var max_sp := (
+	StatCalculation.new(20)
+		.add_modifier(null, "Intellect", func(): return intellect.result)
+)
+var speed: StatCalculation = (
+	StatCalculation.new(100)
+		.add_modifier(null, "Agility", func(): return 5 * agility.result)
+)
+## TODO! Fix this
+var cooldown: float:
+	get():
+		return 1000.0 / speed.result
 
 enum Encumbrance { LIGHT, MEDIUM, HEAVY, }
 
+var carry_capacity := (
+	StatCalculation.new(15)
+		.add_modifier(null, "Strength", func(): return 2 * strength.result)
+)
 var carry: int: get = get_carry
-var carry_capacity: int: get = get_carry_capacity
 var encumbrance: Encumbrance: get = get_encumbrance
 var movement: int: get = get_movement
 
@@ -72,33 +79,16 @@ var current_hp: int: set = set_current_hp
 
 var current_sp: int:
 	set(value):
-		current_sp = clampi(value, 0, max_sp)
+		current_sp = clampi(value, 0, max_sp.result)
 
 ## The bonus to hit chance in percent
-var hit: int: get = get_hit
+var hit := (
+	StatCalculation.new(0)
+		.add_modifier(null, "Dexterity", func(): return 2 * dexterity.result)
+)
 ## The bonus to dodge chance in percent
-var dodge: int: get = get_dodge
-
-func get_max_hp() -> int:
-	var base_hp := 10
-	var job_hp := job_level * maxi(job.hp + vigor, 0)
-	return base_hp + job_hp
-
-
-func get_max_sp() -> int:
-	return 20 + intellect
-
-
-func get_cooldown() -> float:
-	return 10.0 - float(agility) / 10.0
-
-
-func get_hit() -> int:
-	return 2 * dexterity
-
-
-func get_dodge() -> int:
-	return 2 * agility
+var dodge := (StatCalculation.new(0)
+	.add_modifier(null, "Agility", func(): return 2 * agility.result))
 
 
 func get_carry() -> int:
@@ -108,12 +98,8 @@ func get_carry() -> int:
 	return total_weight
 
 
-func get_carry_capacity() -> int:
-	return 15 + 2 * strength
-
-
-func get_encumbrance() -> int:
-	var carry_proportion = float(carry) / float(carry_capacity)
+func get_encumbrance() -> Encumbrance:
+	var carry_proportion = float(carry) / float(carry_capacity.result)
 	if carry_proportion <= 0.5:
 		return Encumbrance.LIGHT
 	if carry_proportion <= 0.75:
@@ -131,7 +117,7 @@ func get_movement() -> int:
 
 
 func set_current_hp(value: int) -> void:
-	current_hp = clampi(value, 0, max_hp)
+	current_hp = clampi(value, 0, max_hp.result)
 	if current_hp == 0:
 		died.emit()
 
@@ -144,36 +130,32 @@ var flying: bool:
 		return is_flying
 
 
-var physical_defense: int:
-	get():
-		var def := 0
-		for armor: ItemArmor in unit.inventory.armor.values():
-			if armor == null: continue
-			def += armor.physical_defense
-		for skill in skills:
-			def = skill.behavior.modify_physical_defense(def)
-		return def
+var physical_defense := StatCalculation.new(0)
+var elemental_defense := StatCalculation.new(0)
 
 
-var elemental_defense: int:
-	get():
-		var def := 0
-		for armor: ItemArmor in unit.inventory.armor.values():
-			if armor == null: continue
-			def += armor.elemental_defense
-		for skill in skills:
-			def = skill.behavior.modify_elemental_defense(def)
-		return def
+func generate_attribute(base_attributes: AttributeArray, race: Race,
+		attribute: AttributeArray.Attribute) -> StatCalculation:
+	return (
+		StatCalculation.new(base_attributes.get_attr(attribute))
+		.add_modifier(null, "Race", func(): return race.attributes.get_attr(attribute))
+	)
 
 
-func generate_stats(_base_attrs: AttributeArray, _race: Race, _job: Job, _job_level: int):
-	base_attributes = _base_attrs
+func generate_stats(base_attributes: AttributeArray, _race: Race, _job: Job, _job_level: int):
 	race = _race
 	job = _job
 	job_level = _job_level
 	
-	current_hp = max_hp
-	current_sp = max_sp
+	for attr in AttributeArray.attribute_names:
+		self.set(AttributeArray.attribute_names[attr],
+				generate_attribute(base_attributes, race, attr))
+	
+	# TODO! Fix this so that on joining the battle a unit has the correct HP/SP
+	current_hp = max_hp.result
+	current_sp = max_sp.result
 
 
-func add_skill(skill: Skill) -> void: skills.append(skill)
+func add_skill(skill: Skill) -> void:
+	skills.append(skill)
+	skill.behavior.on_equip(unit, skill)

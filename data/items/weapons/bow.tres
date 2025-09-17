@@ -1,67 +1,68 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=12 format=3 uid="uid://cjht5ro7hwlkp"]
+[gd_resource type="Resource" script_class="ItemTemplate" load_steps=15 format=3 uid="uid://c4qroq74ucaky"]
 
-[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/Action.gd" id="1_882y8"]
-[ext_resource type="Script" uid="uid://bjl3ryiuya0x" path="res://data/action/effects/Effect.gd" id="2_vebg0"]
-[ext_resource type="Script" uid="uid://ckbl671vl5kxs" path="res://data/action/effects/EffectHitForDamage.gd" id="3_4odnv"]
-[ext_resource type="Script" uid="uid://dnfxkmubl3327" path="res://data/action/targets/TargetRange.gd" id="4_672as"]
-[ext_resource type="Script" uid="uid://dmqq4yrii0tha" path="res://data/items/ItemData.gd" id="5_882y8"]
+[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/ActionTemplate.gd" id="1_6wfhr"]
+[ext_resource type="Script" uid="uid://bjl3ryiuya0x" path="res://data/action/effects/Effect.gd" id="2_672as"]
+[ext_resource type="Script" uid="uid://dmqq4yrii0tha" path="res://data/items/ItemTemplate.gd" id="2_xqb5r"]
+[ext_resource type="Script" uid="uid://cmug76t331gyw" path="res://data/action/effects/targeting/EffectTargeting.gd" id="3_r8vk8"]
+[ext_resource type="Resource" uid="uid://d2xnptx2wnmvv" path="res://data/damage/physical/damage_piercing.tres" id="4_yyyii"]
+[ext_resource type="Script" uid="uid://m1qxrdcpr8y7" path="res://data/action/effects/targeting/EffectDamage.gd" id="5_iu3jd"]
+[ext_resource type="Script" uid="uid://d2ek68noueg0j" path="res://data/action/effects/targeting/EffectHit.gd" id="6_d1n4l"]
+[ext_resource type="Script" uid="uid://dnfxkmubl3327" path="res://data/action/targets/TargetRange.gd" id="7_mt01t"]
 
-[sub_resource type="Resource" id="Resource_vebg0"]
-script = ExtResource("3_4odnv")
-min_damage = 4
-max_damage = 8
-hit = 70
+[sub_resource type="Resource" id="Resource_xamar"]
+script = ExtResource("5_iu3jd")
+min_damage = 3
+max_damage = 6
 scaling_attributes = Dictionary[int, float]({
 1: 1.0
 })
-metadata/_custom_type_script = "uid://ckbl671vl5kxs"
+damage_type = ExtResource("4_yyyii")
+metadata/_custom_type_script = "uid://m1qxrdcpr8y7"
 
-[sub_resource type="Resource" id="Resource_672as"]
-script = ExtResource("4_672as")
+[sub_resource type="Resource" id="Resource_6xh4s"]
+script = ExtResource("6_d1n4l")
+hit = 75
+on_hit_effects = Array[ExtResource("3_r8vk8")]([SubResource("Resource_xamar")])
+metadata/_custom_type_script = "uid://d2ek68noueg0j"
+
+[sub_resource type="Resource" id="Resource_wbbmo"]
+script = ExtResource("5_iu3jd")
+min_damage = 3
+max_damage = 6
+scaling_attributes = Dictionary[int, float]({
+1: 1.0
+})
+damage_type = ExtResource("4_yyyii")
+metadata/_custom_type_script = "uid://m1qxrdcpr8y7"
+
+[sub_resource type="Resource" id="Resource_eswvm"]
+script = ExtResource("6_d1n4l")
+hit = 65
+on_hit_effects = Array[ExtResource("3_r8vk8")]([SubResource("Resource_wbbmo")])
+metadata/_custom_type_script = "uid://d2ek68noueg0j"
+
+[sub_resource type="Resource" id="Resource_cg45v"]
+script = ExtResource("7_mt01t")
 min_range = 2
 max_range = 3
 metadata/_custom_type_script = "uid://dnfxkmubl3327"
 
-[sub_resource type="Resource" id="Resource_4odnv"]
-script = ExtResource("1_882y8")
-name = "Bow: Attack"
+[sub_resource type="Resource" id="Resource_dy2j0"]
+script = ExtResource("1_6wfhr")
+action_name = "Attack"
 sp_cost = 0
-description = "This is an action"
-target = SubResource("Resource_672as")
-effects = Array[ExtResource("2_vebg0")]([SubResource("Resource_vebg0")])
-highlight_color = Color(1, 0, 0, 0.5)
-charges_used = 0
-metadata/_custom_type_script = "uid://bysafihcxa5ur"
-
-[sub_resource type="Resource" id="Resource_r8vk8"]
-script = ExtResource("3_4odnv")
-min_damage = 3
-max_damage = 6
-hit = 60
-scaling_attributes = Dictionary[int, float]({})
-metadata/_custom_type_script = "uid://ckbl671vl5kxs"
-
-[sub_resource type="Resource" id="Resource_yyyii"]
-script = ExtResource("4_672as")
-min_range = 4
-max_range = 5
-metadata/_custom_type_script = "uid://dnfxkmubl3327"
-
-[sub_resource type="Resource" id="Resource_iu3jd"]
-script = ExtResource("1_882y8")
-name = "Long Shot"
-sp_cost = 2
-description = "This is an action"
-target = SubResource("Resource_yyyii")
-effects = Array[ExtResource("2_vebg0")]([SubResource("Resource_r8vk8")])
+description = "A regular attack"
+target = SubResource("Resource_cg45v")
+effects = Array[ExtResource("2_672as")]([SubResource("Resource_6xh4s"), SubResource("Resource_eswvm")])
 highlight_color = Color(1, 0, 0, 0.5)
 charges_used = 0
 metadata/_custom_type_script = "uid://bysafihcxa5ur"
 
 [resource]
-script = ExtResource("5_882y8")
+script = ExtResource("2_xqb5r")
 item_name = "Bow"
-description = "A basic bow"
+description = "A regular bow"
 weight = 3
-actions = Array[ExtResource("1_882y8")]([SubResource("Resource_4odnv"), SubResource("Resource_iu3jd")])
+action_templates = Array[ExtResource("1_6wfhr")]([SubResource("Resource_dy2j0")])
 uses = 1
+metadata/_custom_type_script = "uid://dmqq4yrii0tha"

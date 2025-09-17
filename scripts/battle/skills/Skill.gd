@@ -8,12 +8,12 @@ class_name Skill
 @export var icon: Texture2D
 
 ## The list of actions this skill grants
-@export var actions: Array[Action]
+@export var action_templates: Array[ActionTemplate]
 
 enum Rarity { COMMON, RARE, LEGENDARY, }
 @export var rarity: Rarity
 
-enum Tag { HUMANOID, DAMAGE, }
+enum Tag { HUMANOID, DAMAGE, } # etc.
 @export var tags: Array[Tag]
 
 # The behaviour resource

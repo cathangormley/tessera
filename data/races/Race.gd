@@ -5,7 +5,7 @@ class_name Race
 
 @export var attributes: AttributeArray
 
-@export var actions: Array[Action]
+@export var action_templates: Array[ActionTemplate]
 
 @export var body: Body
 

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Race" load_steps=5 format=3 uid="uid://cnbwr7sngak7a"]
 
-[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/Action.gd" id="1_3rhto"]
+[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/ActionTemplate.gd" id="1_3rhto"]
 [ext_resource type="Resource" uid="uid://bskkdt263ucax" path="res://data/races/attributes/attributes_elf.tres" id="2_ck8pa"]
 [ext_resource type="Resource" uid="uid://c2xnxmwgmtb2j" path="res://data/body/body_humanoid.tres" id="3_ijps6"]
 [ext_resource type="Script" uid="uid://50jshs2h4yoh" path="res://data/races/Race.gd" id="4_5sgbx"]
@@ -9,7 +9,7 @@
 script = ExtResource("4_5sgbx")
 name = "Elf"
 attributes = ExtResource("2_ck8pa")
-actions = Array[ExtResource("1_3rhto")]([])
+action_templates = Array[ExtResource("1_3rhto")]([])
 body = ExtResource("3_ijps6")
 flying = false
 metadata/_custom_type_script = "uid://50jshs2h4yoh"

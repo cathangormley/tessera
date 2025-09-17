@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ca1hyg3is5s6v"]
+[gd_scene load_steps=14 format=3 uid="uid://ca1hyg3is5s6v"]
 
 [ext_resource type="Script" uid="uid://b3t6m4tylwaqm" path="res://scripts/battle/Battle.gd" id="1_85g3d"]
 [ext_resource type="Script" uid="uid://8mhep2ryg7bm" path="res://scripts/battle/controllers/GridController.gd" id="2_choun"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://clskbn12xo77b" path="res://scripts/battle/controllers/UnitController.gd" id="4_eb6dy"]
 [ext_resource type="Script" uid="uid://clhpdh4xp36gh" path="res://scripts/battle/controllers/StateController.gd" id="5_trceg"]
 [ext_resource type="Script" uid="uid://cs5jesi88qfm" path="res://scripts/battle/controllers/TurnController.gd" id="6_a8y0u"]
-[ext_resource type="Resource" uid="uid://c27h38etitqlb" path="res://data/items/weapons/levin.tres" id="6_eb6dy"]
 [ext_resource type="Resource" uid="uid://djietbdutesrg" path="res://data/races/human.tres" id="6_ya4ey"]
 [ext_resource type="Resource" uid="uid://cksqrusktbla3" path="res://data/jobs/jobs/warrior.tres" id="7_eb6dy"]
 [ext_resource type="Script" uid="uid://dy5u3lt7lgwhh" path="res://scripts/battle/Camera.gd" id="7_jkv2x"]
@@ -41,7 +40,6 @@ metadata/_custom_type_script = "uid://dy5u3lt7lgwhh"
 [node name="UnitController" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("4_eb6dy")
-levin = ExtResource("6_eb6dy")
 race_human = ExtResource("6_ya4ey")
 job_warrior = ExtResource("7_eb6dy")
 metadata/_custom_type_script = "uid://clskbn12xo77b"
@@ -84,6 +82,7 @@ unique_name_in_owner = true
 [connection signal="action_area_highlighted" from="StateController" to="." method="_on_state_controller_action_area_highlighted"]
 [connection signal="state_changed" from="StateController" to="." method="_on_state_controller_state_changed"]
 [connection signal="unit_highlighted" from="StateController" to="." method="_on_state_controller_unit_highlighted"]
+[connection signal="unit_hovered_over_cell" from="StateController" to="." method="_on_state_controller_unit_hovered_over_cell"]
 [connection signal="turn_ended" from="TurnController" to="." method="_on_turn_controller_turn_ended"]
 [connection signal="turn_started" from="TurnController" to="." method="_on_turn_controller_turn_started"]
 [connection signal="unit_clicked" from="CanvasLayer/TurnQueueHUD" to="." method="_on_turn_queue_hud_unit_clicked"]

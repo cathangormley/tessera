@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bietvwts3qn73"]
 
 [ext_resource type="Script" uid="uid://m7kaa6e6egwg" path="res://scripts/battle/unit/Unit.gd" id="1_vpb8e"]
-[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/Action.gd" id="2_b7cbv"]
+[ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/ActionTemplate.gd" id="2_b7cbv"]
 [ext_resource type="Resource" uid="uid://cy2585p50qipq" path="res://data/action/actions/wait.tres" id="3_b0e8p"]
 [ext_resource type="SpriteFrames" uid="uid://b62dvr22bexkg" path="res://assets/Cute_Fantasy_Free/Player/player_frames.tres" id="4_v1lwn"]
 [ext_resource type="Script" uid="uid://5w0ph64x5fel" path="res://scripts/battle/unit/Stats.gd" id="5_6iwi7"]
@@ -11,7 +11,7 @@
 script = ExtResource("1_vpb8e")
 inventory = NodePath("Inventory")
 stats = NodePath("Stats")
-general_actions = Array[ExtResource("2_b7cbv")]([ExtResource("3_b0e8p")])
+general_action_templates = Array[ExtResource("2_b7cbv")]([ExtResource("3_b0e8p")])
 metadata/_custom_type_script = "uid://m7kaa6e6egwg"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -25,9 +25,10 @@ script = ExtResource("5_6iwi7")
 unit = NodePath("..")
 metadata/_custom_type_script = "uid://5w0ph64x5fel"
 
-[node name="Inventory" type="Node" parent="."]
+[node name="Inventory" type="Node" parent="." node_paths=PackedStringArray("unit")]
 unique_name_in_owner = true
 script = ExtResource("6_uhw2w")
+unit = NodePath("..")
 metadata/_custom_type_script = "uid://dipvbfat4s7af"
 
 [connection signal="died" from="Stats" to="." method="die"]

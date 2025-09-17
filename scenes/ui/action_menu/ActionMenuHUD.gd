@@ -52,7 +52,7 @@ func open_action_submenu(actions: Array[Action], unit: PlayerUnit, is_item_actio
 	
 	var action_submenu: ActionSubmenu = action_submenu_scene.instantiate()
 	add_menu_to_tree(action_submenu, unit)
-	action_submenu.display_actions(actions)
+	action_submenu.display_actions(actions, unit)
 	
 	action_submenu.action_button_hovered.connect(_on_action_button_hovered.bind(unit))
 	action_submenu.action_button_pressed.connect(_on_action_button_pressed.bind(unit))
@@ -97,11 +97,6 @@ func _on_button_pressed(option: ActionMenu.ButtonOption, unit: PlayerUnit) -> vo
 func _on_item_button_pressed(item: Item, unit: PlayerUnit) -> void:
 	print("Item pressed: ", item.item_name)
 	open_action_submenu(item.actions, unit, true)
-
-#
-#func _on_screen_gui_input(event: InputEvent) -> void:
-	#if event.is_action_pressed("ui_right_click"):
-		#cancel(unit)
 
 
 ## Back out of menu by one level (e.g. by selecting cancel or right-clicking) 

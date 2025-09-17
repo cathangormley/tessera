@@ -6,6 +6,17 @@ signal action_executed(unit: Unit, action: Action, target_area: CellArea)
 
 signal unit_died(unit: Unit)
 
+var battle: Battle
+var grid_controller: GridController:
+	get():
+		return battle.grid_controller
+var unit_controller: UnitController:
+	get():
+		return battle.unit_controller
+var turn_controller: TurnController:
+	get():
+		return battle.turn_controller
+
 @export var inventory: Inventory
 @export var stats: Stats
 
@@ -46,18 +57,15 @@ var item_actions: Array[Action]:
 
 var job_actions: Array[Action] = []
 
-var race_actions: Array[Action]:
-	get: return stats.race.actions
+var race_actions: Array[Action] = []
 
 var skill_actions: Array[Action] = []
-@export var general_actions: Array[Action]
+
+@export var general_action_templates: Array[ActionTemplate]
+var general_actions: Array[Action]
 
 ## The amount of seconds to play the animation of the unit moving
 const MOVE_TIME_SECONDS: float = 0.8
-
-@onready var grid_controller: GridController = get_node("/root/Battle/GridController")
-@onready var radius = grid_controller.cell_size / 4
-
 
 func new_unit(_unit_name: String) -> void:
 	unit_name = _unit_name
@@ -66,7 +74,7 @@ func new_unit(_unit_name: String) -> void:
 
  
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, radius, color)
+	draw_circle(Vector2.ZERO, 8.0, color)
 	print("Drew " + unit_name)
 
 
@@ -194,7 +202,7 @@ func reconstruct_path(paths: Array, target_cell: Cell, grid: Array) -> Array[Cel
 
 func calculate_target_areas() -> void:
 	for action in actions:
-		print("Updating action target areas for: " + action.name)
+		print("Updating action target areas for: " + action.action_name)
 		action.target.update_areas(hovered_cell, grid_controller)
 	return
 
@@ -273,9 +281,19 @@ func get_unit_icon(unit: Unit) -> Texture2D:
 	return null
 
 
-func generate_stats(_base_stats: AttributeArray, _race: Race, _job: Job, _job_level: int) -> void:
+func initialize(_base_stats: AttributeArray, _race: Race, _job: Job, _job_level: int) -> void:
 	stats.generate_stats(_base_stats, _race, _job, _job_level)
-
+	inventory.create_armor_slots(_race)
+	
+	# Initialize actions
+	for action_template in stats.race.action_templates:
+		race_actions.append(action_template.to_action())
+	for action_template in general_action_templates:
+		general_actions.append(action_template.to_action())
 
 func add_item_to_inventory(item: Item) -> void:
 	inventory.add_item(item)
+
+
+func get_skills() -> Array[Skill]:
+	return stats.skills

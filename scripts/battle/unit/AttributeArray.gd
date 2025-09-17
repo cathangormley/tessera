@@ -15,16 +15,38 @@ class_name AttributeArray
 
 enum Attribute { VIG, STR, DEX, AGI, INT, FAI }
 
+static var attribute_names: Dictionary[Attribute, String] = {
+	Attribute.VIG: "vigor",
+	Attribute.STR: "strength",
+	Attribute.DEX: "dexterity",
+	Attribute.AGI: "agility",
+	Attribute.INT: "intellect",
+	Attribute.FAI: "faith",
+}
+
+static var attribute_names_short: Dictionary[Attribute, String] = {
+	Attribute.VIG: "VIG",
+	Attribute.STR: "STR",
+	Attribute.DEX: "DEX",
+	Attribute.AGI: "AGI",
+	Attribute.INT: "INT",
+	Attribute.FAI: "FAI",
+}
+
 ## Core Attributes
-@export var _vigor: float
-@export var _strength: float
-@export var _dexterity: float
-@export var _agility: float
-@export var _intellect: float
-@export var _faith: float
+@export var _vigor: int
+@export var _strength: int
+@export var _dexterity: int
+@export var _agility: int
+@export var _intellect: int
+@export var _faith: int
+
+var array: Array[int]:
+	get():
+		return [_vigor, _strength, _dexterity, _agility, _intellect, _faith]
 
 
-func get_attr(attr: Attribute) -> float:
+func get_attr(attr: Attribute) -> int:
 	match attr:
 		Attribute.VIG: return _vigor
 		Attribute.STR: return _strength
@@ -34,13 +56,13 @@ func get_attr(attr: Attribute) -> float:
 		Attribute.FAI: return _faith
 		_: # Should never happen
 			assert(false)
-			return 0.0
+			return 0
 
 
-static var ZERO: AttributeArray = AttributeArray.from_array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+static var ZERO: AttributeArray = AttributeArray.from_array([0, 0, 0, 0, 0, 0])
 
 
-static func from_array(array: Array[float]) -> AttributeArray:
+static func from_array(array: Array[int]) -> AttributeArray:
 	assert(array.size() == 6, "Tried to create AttributeArray from array of incorrect length")
 	
 	var attr_array =  AttributeArray.new()
@@ -64,12 +86,18 @@ func to_array() -> Array[float]:
 ## Returns an attribute array with elements equal to the sum of the attributes of two attribute arrays
 func add(attr_array: AttributeArray) -> AttributeArray:
 	if attr_array == null: return self
-	return AttributeArray.from_array(Vec.add(to_array(), attr_array.to_array()))
+	var sum_array: Array[int]
+	# For performance, we put these in explicit variables
+	var array1 := array
+	var array2 := attr_array.array
+	for i in array1.size():
+		sum_array.append(array1[i] + array2[i])
+	return AttributeArray.from_array(sum_array)
 
 
 ## Returns an attribute array with elements multiplied by mult
 func multiply(mult: float) -> AttributeArray:
-	var array := to_array()
-	for i in array.size():
-		array[i] *= mult
-	return AttributeArray.from_array(array)
+	var mult_array := array
+	for i in mult_array.size():
+		mult_array[i] = int(mult * mult_array[i])
+	return AttributeArray.from_array(mult_array)

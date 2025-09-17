@@ -7,12 +7,16 @@ signal cancel_pressed()
 
 @onready var actions_vbox := %VBoxContainer
 
-func display_actions(actions) -> void:
+func display_actions(actions: Array[Action], user: Unit) -> void:
 	
 	for action in actions:
 		var button = Button.new()
-		button.text = "%s (%d)" % [action.name, action.sp_cost]
+		button.text = "%s (%d)" % [action.action_name, action.sp_cost]
+		
 		button.tooltip_text = action.description
+		for effect in action.effects:
+			button.tooltip_text += "\n" + effect.get_forecast(user)
+			
 		button.pressed.connect(_on_action_button_pressed.bind(action))
 		button.mouse_entered.connect(_on_action_button_hovered.bind(action))
 		button.mouse_exited.connect(_on_action_button_hovered.bind(null))
