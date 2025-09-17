@@ -1,20 +1,33 @@
 ## Skills are special modifiers or abilities
 ## A unit may have many skills; they help make every unit feel unique
-extends Resource
+extends Node
 class_name Skill
 
-@export var name: String
-@export var description: String
-@export var icon: Texture2D
+# The template that was used to generate this skill
+var skill_template: SkillTemplate
 
-## The list of actions this skill grants
-@export var action_templates: Array[ActionTemplate]
+var skill_name: String
+var description: String
+var icon: Texture2D
 
-enum Rarity { COMMON, RARE, LEGENDARY, }
-@export var rarity: Rarity
+var actions: Array[Action]
 
-enum Tag { HUMANOID, DAMAGE, } # etc.
-@export var tags: Array[Tag]
+var tags: Array[SkillTemplate.Tag]
 
-# The behaviour resource
-@export var behavior: SkillBehavior
+var behavior: SkillBehavior
+
+## Use input skill template to generate skill
+func use_skill_template(_skill_template: SkillTemplate) -> Skill:
+	skill_template = _skill_template
+	
+	skill_name = skill_template.name
+	description = skill_template.description
+	icon = skill_template.icon
+	
+	for action_template in skill_template.action_templates:
+		actions.append(action_template.to_action())
+	
+	tags = skill_template.tags
+	behavior = skill_template.behavior
+	
+	return self

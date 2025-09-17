@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="Skill" load_steps=5 format=3 uid="uid://bhjy3mdxlvaml"]
+[gd_resource type="Resource" script_class="SkillTemplate" load_steps=5 format=3 uid="uid://bhjy3mdxlvaml"]
 
 [ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/ActionTemplate.gd" id="1_2l3d5"]
 [ext_resource type="Script" uid="uid://ccfknmbduyllc" path="res://scripts/battle/skills/skill_behaviors/Tough.gd" id="2_2l3d5"]
-[ext_resource type="Script" uid="uid://ba4c702mo267b" path="res://scripts/battle/skills/Skill.gd" id="3_aoolb"]
+[ext_resource type="Script" uid="uid://ba4c702mo267b" path="res://scripts/battle/skills/SkillTemplate.gd" id="3_aoolb"]
 
 [sub_resource type="Resource" id="Resource_6k8ty"]
 script = ExtResource("2_2l3d5")

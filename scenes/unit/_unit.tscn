@@ -9,9 +9,9 @@
 
 [node name="Unit" type="Node2D" node_paths=PackedStringArray("inventory", "stats")]
 script = ExtResource("1_vpb8e")
+general_action_templates = Array[ExtResource("2_b7cbv")]([ExtResource("3_b0e8p")])
 inventory = NodePath("Inventory")
 stats = NodePath("Stats")
-general_action_templates = Array[ExtResource("2_b7cbv")]([ExtResource("3_b0e8p")])
 metadata/_custom_type_script = "uid://m7kaa6e6egwg"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

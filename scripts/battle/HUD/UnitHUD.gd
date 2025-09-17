@@ -124,7 +124,7 @@ func display_unit_skills(unit: Unit) -> void:
 	
 	for skill in unit.stats.skills:
 		var label = Label.new()
-		label.text = skill.name
+		label.text = skill.skill_name
 		label.tooltip_text = skill.description
 		label.mouse_filter = Control.MOUSE_FILTER_STOP
 		skills_vbox.add_child(label)

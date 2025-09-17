@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="Skill" load_steps=5 format=3 uid="uid://egmxae6gm46l"]
+[gd_resource type="Resource" script_class="SkillTemplate" load_steps=5 format=3 uid="uid://egmxae6gm46l"]
 
 [ext_resource type="Script" uid="uid://bysafihcxa5ur" path="res://data/action/actions/ActionTemplate.gd" id="1_6sxsw"]
-[ext_resource type="Script" uid="uid://ba4c702mo267b" path="res://scripts/battle/skills/Skill.gd" id="2_64d4o"]
+[ext_resource type="Script" uid="uid://ba4c702mo267b" path="res://scripts/battle/skills/SkillTemplate.gd" id="2_64d4o"]
 [ext_resource type="Script" uid="uid://b2tndwi78qvvw" path="res://scripts/battle/skills/skill_behaviors/HillFighter.gd" id="2_dq3oy"]
 
 [sub_resource type="Resource" id="Resource_xg6j3"]

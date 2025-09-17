@@ -72,6 +72,9 @@ func generate_ai_unit(level: int) -> AIUnit:
 func add_skills(unit: Unit) -> void:
 	## Get one random skill per level
 	var skills := SkillDB.get_random_skills_with_tags([], unit.stats.job_level)
-	for skill in skills:
+	for skill_template in skills:
+		var skill := skill_template.to_skill()
+		if Utils.roll_percentage(30):
+			skill.skill_name = "Uhh"
 		unit.stats.add_skill(skill)
 	
